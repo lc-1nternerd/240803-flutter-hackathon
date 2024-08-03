@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:diefiaker/game/components/resource_type.dart';
+import 'package:diefiaker/game/components/resources/resource_type.dart';
 import 'package:diefiaker/game/constants.dart';
 import 'package:flame/components.dart' hide Timer;
 import 'package:flutter/cupertino.dart';
@@ -27,17 +27,6 @@ class ResourceComponent<T extends ResourceType> extends CircleComponent {
   final VoidCallback? emitResourceCallback;
   final double productionPerMinute;
   Timer? periodicProductionTimer;
-
-  // void createTimedResourceEmitter() {
-  //   periodicProductionTimer?.cancel();
-  //   periodicProductionTimer = null;
-  //   periodicProductionTimer = Timer.periodic(
-  //     Duration(seconds: (60 / productionPerMinute).toInt()),
-  //     (Timer timer) {
-  //       emitResourceCallback?.call();
-  //     },
-  //   );
-  // }
 
   onProduce(ResourceCallback callback) {
     periodicProductionTimer?.cancel();

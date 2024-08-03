@@ -1,5 +1,5 @@
-import 'package:diefiaker/game/components/resource.dart';
-import 'package:diefiaker/game/components/resource_type.dart';
+import 'package:diefiaker/game/components/resources/resource.dart';
+import 'package:diefiaker/game/components/resources/resource_type.dart';
 import 'package:flutter/material.dart';
 
 class FeatherResourceComponent extends ResourceComponent {

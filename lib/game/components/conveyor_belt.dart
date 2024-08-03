@@ -1,5 +1,5 @@
 import 'package:diefiaker/game/components/machine.dart';
-import 'package:diefiaker/game/components/resource_type.dart';
+import 'package:diefiaker/game/components/resources/resource_type.dart';
 import 'package:diefiaker/game/components/single_input_machine.dart';
 import 'package:diefiaker/game/game.dart';
 import 'package:flame/components.dart';

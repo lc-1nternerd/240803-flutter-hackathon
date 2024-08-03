@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:diefiaker/game/components/machine.dart';
 import 'package:diefiaker/game/components/multiple_input_machine.dart';
-import 'package:diefiaker/game/components/resource_type.dart';
+import 'package:diefiaker/game/components/resources/resource_type.dart';
 import 'package:diefiaker/game/recipe/recipes.dart';
 import 'package:flutter/material.dart';
 

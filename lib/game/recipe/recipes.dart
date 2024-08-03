@@ -1,4 +1,4 @@
-import 'package:diefiaker/game/components/resource_type.dart';
+import 'package:diefiaker/game/components/resources/resource_type.dart';
 
 abstract class MachineRecipe {
   bool isDone(Map<ResourceType, int> resourceMap);
