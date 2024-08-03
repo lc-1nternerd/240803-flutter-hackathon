@@ -1,13 +1,12 @@
+import 'package:diefiaker/game/components/resource_type.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 
-class MachineComponent<I extends Component, O extends Component> extends RectangleComponent {
-  final I input;
+abstract class MachineComponent<O extends Component> extends RectangleComponent {
   O? output;
 
   MachineComponent(
       {required super.position,
-      required this.input,
       this.output,
       Color color = Colors.pink,
       double height = 50,
@@ -19,4 +18,5 @@ class MachineComponent<I extends Component, O extends Component> extends Rectang
               ..color = color
               ..style = PaintingStyle.fill);
 
+  push(ResourceType type) => {};
 }

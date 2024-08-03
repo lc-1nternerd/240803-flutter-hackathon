@@ -13,11 +13,9 @@ import 'package:flame/game.dart';
 import 'package:flame/input.dart';
 import 'package:flutter/material.dart';
 
-class DieFiakerGame extends FlameGame with TapDetector {
-  DieFiakerGame()
-      : super(
-            camera: CameraComponent.withFixedResolution(
-                width: gameWidth, height: gameHeight));
+class DieFiakerGame extends FlameGame with TapDetector, DragCallbacks {
+
+  DieFiakerGame() : super(camera: CameraComponent.withFixedResolution(width: gameWidth, height: gameHeight));
 
   @override
   Color backgroundColor() {
@@ -89,4 +87,9 @@ class DieFiakerGame extends FlameGame with TapDetector {
       ));
     }
   }
+
+  // @override
+  // onDragUpdate(DragUpdateEvent details) {
+  //   print("dragging ${details.canvasDelta}");
+  // }
 }

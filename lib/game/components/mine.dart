@@ -2,13 +2,13 @@ import 'dart:async';
 
 import 'package:diefiaker/game/components/feather_resource.dart';
 import 'package:diefiaker/game/components/iron_resource.dart';
-import 'package:diefiaker/game/components/machine.dart';
 import 'package:diefiaker/game/components/resource.dart';
 import 'package:diefiaker/game/components/resource_type.dart';
+import 'package:diefiaker/game/components/single_input_machine.dart';
 import 'package:diefiaker/game/constants.dart';
 import 'package:flutter/material.dart';
 
-class MineComponent extends MachineComponent<ResourceComponent, MachineComponent> {
+class MineComponent extends SingleInputMachineComponent<ResourceComponent> {
   MineComponent({
     required super.input,
     super.output,
@@ -30,6 +30,9 @@ class MineComponent extends MachineComponent<ResourceComponent, MachineComponent
 
   produceResource(ResourceType type) {
     print("produced type $type");
+    if (output != null) {
+      output?.push(type);
+    }
   }
 
   @override
