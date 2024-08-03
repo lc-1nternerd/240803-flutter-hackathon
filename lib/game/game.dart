@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:diefiaker/game/components/combiner_machine.dart';
 import 'package:diefiaker/game/components/conveyor_belt.dart';
+import 'package:diefiaker/game/components/dash_combiner.dart';
 import 'package:diefiaker/game/components/machine.dart';
 import 'package:diefiaker/game/components/mine.dart';
 import 'package:diefiaker/game/components/resources/sand_resource.dart';
@@ -23,6 +24,9 @@ import 'components/resources/iron_resource.dart';
 import 'components/resources/resource.dart';
 
 class DieFiakerGame extends FlameGame with TapDetector, DragCallbacks {
+
+  late final DashCombiner finalCombiner;
+
   DieFiakerGame()
       : super(
             camera: CameraComponent.withFixedResolution(
@@ -37,14 +41,35 @@ class DieFiakerGame extends FlameGame with TapDetector, DragCallbacks {
   FutureOr<void> onLoad() {
     add(FeatherResourceComponent(
         position: Vector2(50, 50), productionPerMinute: 60));
+
+    add(FeatherResourceComponent(
+        position: Vector2(600, 600), productionPerMinute: 60));
     add(IronResourceComponent(
         position: Vector2(250, 300), productionPerMinute: 30));
 
     add(WoodResourceComponent(
         position: Vector2(200, 400), productionPerMinute: 80));
 
+    add(WoodResourceComponent(
+        position: Vector2(1000, 600), productionPerMinute: 80));
+    
+    add(WoodResourceComponent(
+        position: Vector2(600, 200), productionPerMinute: 80));
+
     add(SandResourceComponent(
         position: Vector2(100, 600), productionPerMinute: 30));
+    
+    add(IronResourceComponent(
+        position: Vector2(1050, 50), productionPerMinute: 30));
+
+    add(IronResourceComponent(
+        position: Vector2(500, 100), productionPerMinute: 30));
+
+    finalCombiner = DashCombiner(position: Vector2(1200, 400));
+
+    finalCombiner;
+    
+    add(finalCombiner);
   }
 
   @override

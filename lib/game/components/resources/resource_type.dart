@@ -9,5 +9,7 @@ enum ResourceType {
   Foot,
   Body,
   Beak,
-  Eye
+  Eye,
+  // DAAASH
+  Dash
 }

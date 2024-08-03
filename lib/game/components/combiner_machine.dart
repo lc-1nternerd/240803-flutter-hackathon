@@ -7,6 +7,8 @@ import 'package:diefiaker/game/recipe/recipes.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 
+typedef OnCookCallback = Future<void> Function();
+
 class CombinerMachineComponent extends MultiInputMachine<MachineComponent> {
   MachineRecipe recipe;
 
@@ -35,6 +37,8 @@ class CombinerMachineComponent extends MultiInputMachine<MachineComponent> {
     }
   }
 
+  onCook() => {};
+
   @override
   addInput(MachineComponent input) {
     print("adding input ${input.runtimeType}");
@@ -43,7 +47,7 @@ class CombinerMachineComponent extends MultiInputMachine<MachineComponent> {
 
   @override
   push(ResourceType type) {
-    print("push on combiner machine $hashCode: $type");
+    print("push on combiner machine $runtimeType: $type");
     if (resourceMap[type] == null) {
       resourceMap[type] = 1;
     } else {

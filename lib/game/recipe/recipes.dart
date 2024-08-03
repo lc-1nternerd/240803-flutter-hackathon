@@ -2,7 +2,12 @@ import 'package:diefiaker/game/components/resources/resource_type.dart';
 
 abstract class MachineRecipe {
   bool isDone(Map<ResourceType, int> resourceMap) {
-    return (resourceMap.keys.every((r) => ingredients[r] == resourceMap[r]));
+    return (resourceMap.keys.every((r) {
+      if (resourceMap[r] == null) {
+        return false;
+      }
+      return resourceMap[r]! >= ingredients[r]!;
+    }));
   }
 
   Map<ResourceType, int> get ingredients;
@@ -71,5 +76,21 @@ class EyesRecipe extends MachineRecipe {
   @override
   ResourceType cook() {
     return ResourceType.Eye;
+  }
+}
+
+class DashRecipe extends MachineRecipe {
+  @override
+  Map<ResourceType, int> get ingredients => {
+    ResourceType.Wing: 2,
+    ResourceType.Foot: 2,
+    ResourceType.Body: 10,
+    ResourceType.Beak: 1,
+    ResourceType.Eye: 2,
+  };
+
+  @override
+  ResourceType cook() {
+    return ResourceType.Dash;
   }
 }

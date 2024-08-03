@@ -16,7 +16,8 @@ abstract class MachineComponent<O extends Component> extends RectangleComponent 
             size: Vector2(height, width),
             paint: Paint()
               ..color = color
-              ..style = PaintingStyle.fill);
+              ..style = PaintingStyle.fill)
+            ;
 
   push(ResourceType type) => throw UnimplementedError("'$runtimeType' cannot push resources!");
 

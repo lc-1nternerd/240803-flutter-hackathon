@@ -58,7 +58,6 @@ class ConveyorBeltComponent
 
   @override
   push(ResourceType type) {
-    print("pushed on belt $hashCode");
 
     currentResources.add(TimedResource(type, DateTime.now()));
   }
