@@ -29,7 +29,7 @@ class DieFiakerGame extends FlameGame with TapDetector, DragCallbacks {
 
   @override
   Color backgroundColor() {
-    return Colors.amber;
+    return Colors.green.shade600;
   }
 
   @override
