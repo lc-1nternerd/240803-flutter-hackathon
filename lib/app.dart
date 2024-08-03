@@ -1,3 +1,4 @@
+import 'package:diefiaker/game/controls/control_widget.dart';
 import 'package:diefiaker/game/game.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +10,6 @@ class GameApp extends StatefulWidget {
   State<StatefulWidget> createState() {
     return GameAppState();
   }
-
 }
 
 class GameAppState extends State<GameApp> {
@@ -18,21 +18,27 @@ class GameAppState extends State<GameApp> {
     return MaterialApp(
       title: 'Die FICKER',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.tealAccent,
+        ),
         useMaterial3: true,
       ),
-      // home: Scaffold(
-      //   body: SafeArea(child: FittedBox(
-      //     alignment: Alignment.center,
-      //     child: SizedBox(
-      //       height: gameHeight,
-      //       width: gameWidth,
-      //       child: 
-      //     ),
-      //   )),
-      // ),
       home: Scaffold(
-        body: SafeArea(child: GameWidget(game: DieFiakerGame()),),
+        body: SafeArea(
+          child: Stack(
+            children: [
+              Expanded(
+                child: GameWidget(
+                  game: DieFiakerGame(),
+                ),
+              ),
+              const Align(
+                alignment: Alignment.bottomCenter,
+                child: ControlWidget(),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
