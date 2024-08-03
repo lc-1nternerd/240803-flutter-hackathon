@@ -1,8 +1,11 @@
 import 'dart:async';
 
-import 'package:diefiaker/game/components/machine.dart';
+import 'package:diefiaker/game/components/feather_resource.dart';
+import 'package:diefiaker/game/components/iron_resource.dart';
+import 'package:diefiaker/game/components/mine.dart';
+import 'package:diefiaker/game/components/resource.dart';
 import 'package:diefiaker/game/constants.dart';
-import 'package:flame/camera.dart';
+import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
@@ -19,28 +22,34 @@ class DieFiakerGame extends FlameGame with TapDetector {
 
   @override
   FutureOr<void> onLoad() {
-    super.onLoad();
-
-    // Draw grid background
-    // final background = BackgroundComponent();
-    // add(background);
-
-    add(MachineComponent(position: Vector2(tileSize/2, tileSize/2), height: tileSize, width: tileSize));
-    add(MachineComponent(position: Vector2(gameWidth/2, gameHeight/2), height: tileSize, width: tileSize, color: Colors.blue));
+    add(FeatherResourceComponent(position: Vector2(50, 50), productionPerMinute: 60));
+    add(IronResourceComponent(position: Vector2(250, 300), productionPerMinute: 30));
+    
   }
+
 
    @override
   void onTapDown(TapDownInfo info) {
     final position = info.eventPosition.widget;
 
-
     final gridX = (position.x / tileSize).round() * tileSize;
     final gridY = (position.y / tileSize).round() * tileSize;
 
-    add(MachineComponent(
+    final components = componentsAtPoint(Vector2(gridX, gridY));
+
+    if (components.whereType<MineComponent>().isNotEmpty) {
+      print("wont place another mine if existing");
+      return;
+    }
+
+    final resources = components.whereType<ResourceComponent>();
+
+    if (resources.length == 1) {
+      add(MineComponent(
+        input: resources.first,
         position: Vector2(gridX , gridY),
         height: tileSize,
-        width: tileSize,
-        color: Colors.green));
+        width: tileSize));
+    }
   }
 }
