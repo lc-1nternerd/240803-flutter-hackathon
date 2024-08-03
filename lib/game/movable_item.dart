@@ -14,11 +14,22 @@ class MovableItem extends PositionComponent {
     required this.path,
     required this.ratePerMinute,
   })  : paint = Paint()..color = color,
-        super(position: position, size: Vector2.all(20)) {
+        super(position: Vector2.zero(), size: Vector2.all(20)) {
     // Calculate speed based on ratePerMinute
     // One tile is 50x50, so speed = distance / time
     // 60 items per minute means 1 item per second if distance is 50 pixels
     speed = 50.0 * ratePerMinute / 60.0;
+
+    // Adjust the initial position and path to start from (0,0)
+    _adjustPathAndPosition(position);
+  }
+
+  void _adjustPathAndPosition(Vector2 startPosition) {
+    final offset = startPosition;
+    for (int i = 0; i < path.length; i++) {
+      path[i] -= offset;
+    }
+    position.setFrom(Vector2.zero());
   }
 
   @override
@@ -41,6 +52,7 @@ class MovableItem extends PositionComponent {
   }
 
   void addTarget(Vector2 target) {
-    path.add(target);
+    // Adjust target to be relative to the initial position
+    path.add(target - position);
   }
 }

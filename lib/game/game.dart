@@ -24,7 +24,6 @@ import 'components/resources/iron_resource.dart';
 import 'components/resources/resource.dart';
 
 class DieFiakerGame extends FlameGame with TapDetector, DragCallbacks {
-
   late final DashCombiner finalCombiner;
 
   DieFiakerGame()
@@ -52,13 +51,13 @@ class DieFiakerGame extends FlameGame with TapDetector, DragCallbacks {
 
     add(WoodResourceComponent(
         position: Vector2(1000, 600), productionPerMinute: 80));
-    
+
     add(WoodResourceComponent(
         position: Vector2(600, 200), productionPerMinute: 80));
 
     add(SandResourceComponent(
         position: Vector2(100, 600), productionPerMinute: 30));
-    
+
     add(IronResourceComponent(
         position: Vector2(1050, 50), productionPerMinute: 30));
 
@@ -68,7 +67,7 @@ class DieFiakerGame extends FlameGame with TapDetector, DragCallbacks {
     finalCombiner = DashCombiner(position: Vector2(1200, 400));
 
     finalCombiner;
-    
+
     add(finalCombiner);
   }
 
@@ -215,7 +214,7 @@ class DieFiakerGame extends FlameGame with TapDetector, DragCallbacks {
           ConveyorBeltComponent? before =
               combiner.inputs.first as ConveyorBeltComponent?;
 
-          late MineComponent lastMine;
+          late dynamic lastMine;
 
           List<Vector2> path = [];
           path.add(combiner.position);
@@ -226,14 +225,19 @@ class DieFiakerGame extends FlameGame with TapDetector, DragCallbacks {
               path.add(before.position);
             } else {
               final maschine = before.input;
-              lastMine = before.input as MineComponent;
-              path.add(maschine.position);
+
+              if (before.input is MineComponent) {
+                lastMine = before.input as MineComponent;
+                path.add(maschine.position);
+              }
 
               break;
             }
           }
 
-          lastMine.addPath(path.reversed.toList());
+          if (lastMine != null) {
+            lastMine.addPath(path.reversed.toList());
+          }
 
           return;
         }

@@ -73,8 +73,9 @@ class MineComponent extends SingleInputMachineComponent<ResourceComponent>
 
       for (var i = 0; i < path.length; i++) {
         newList.add(
-          path[i] + Vector2(-250, -300),
-        );
+            // path[i] + Vector2(-250, -300),
+
+            path[i]);
       }
 
       var color = Colors.brown;
