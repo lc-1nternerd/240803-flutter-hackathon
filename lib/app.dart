@@ -27,10 +27,8 @@ class GameAppState extends State<GameApp> {
         body: SafeArea(
           child: Stack(
             children: [
-              Expanded(
-                child: GameWidget(
-                  game: DieFiakerGame(),
-                ),
+              GameWidget(
+                game: DieFiakerGame(),
               ),
               const Align(
                 alignment: Alignment.bottomCenter,

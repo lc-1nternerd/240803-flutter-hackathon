@@ -1,12 +1,13 @@
 import 'dart:async';
 
+import 'package:diefiaker/game/components/combiner_machine.dart';
 import 'package:diefiaker/game/components/conveyor_belt.dart';
 import 'package:diefiaker/game/components/feather_resource.dart';
 import 'package:diefiaker/game/components/iron_resource.dart';
 import 'package:diefiaker/game/components/machine.dart';
 import 'package:diefiaker/game/components/mine.dart';
-import 'package:diefiaker/game/components/resource.dart';
 import 'package:diefiaker/game/constants.dart';
+import 'package:diefiaker/game/recipe/recipes.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
@@ -14,8 +15,10 @@ import 'package:flame/input.dart';
 import 'package:flutter/material.dart';
 
 class DieFiakerGame extends FlameGame with TapDetector, DragCallbacks {
-
-  DieFiakerGame() : super(camera: CameraComponent.withFixedResolution(width: gameWidth, height: gameHeight));
+  DieFiakerGame()
+      : super(
+            camera: CameraComponent.withFixedResolution(
+                width: gameWidth, height: gameHeight));
 
   @override
   Color backgroundColor() {
@@ -31,7 +34,7 @@ class DieFiakerGame extends FlameGame with TapDetector, DragCallbacks {
   }
 
   @override
-  void onTapDown(TapDownInfo info) {
+  void onTapDown(TapDownInfo info) async {
     final position = info.eventPosition.widget;
     final gridX = (position.x / tileSize).round() * tileSize;
     final gridY = (position.y / tileSize).round() * tileSize;
@@ -71,21 +74,96 @@ class DieFiakerGame extends FlameGame with TapDetector, DragCallbacks {
 
     final components = componentsAtPoint(placePosition);
 
-    if (components.whereType<MineComponent>().isNotEmpty) {
-      print("wont place another mine if existing");
-      return;
+    MachineRecipe? selectedRecipe;
+    await showDialog<void>(
+        context: buildContext!,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Basic dialog title'),
+            content: Column(
+              children: [
+                const Text("Select the desired recipe for the machine:"),
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    ListTile(
+                      title: const Text("Wings"),
+                      onTap: () {
+                        selectedRecipe = WingRecipe();
+
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                    ListTile(
+                      title: const Text("Feet"),
+                      onTap: () {
+                        selectedRecipe = FootRecipe();
+
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                    ListTile(
+                      title: const Text("Body"),
+                      onTap: () {
+                        selectedRecipe = BodyRecipe();
+
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                    ListTile(
+                      title: const Text("Beak"),
+                      onTap: () {
+                        selectedRecipe = BeakRecipe();
+
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                    ListTile(
+                      title: const Text("Eyes"),
+                      onTap: () {
+                        selectedRecipe = EyesRecipe();
+
+                        Navigator.of(context).pop();
+                      },
+                    )
+                  ],
+                )
+              ],
+            ),
+            actions: <Widget>[
+              TextButton(
+                style: TextButton.styleFrom(
+                  textStyle: Theme.of(context).textTheme.labelLarge,
+                ),
+                child: const Text('Cancel'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        });
+
+    if (selectedRecipe != null) {
+      add(CombinerMachineComponent(
+          position: placePosition, recipe: selectedRecipe!));
     }
 
-    final resources = components.whereType<ResourceComponent>();
+    // if (components.whereType<MineComponent>().isNotEmpty) {
+    //   print("wont place another mine if existing");
+    //   return;
+    // }
 
-    if (resources.length == 1) {
-      add(MineComponent(
-        input: resources.first,
-        position: placePosition,
-        height: tileSize,
-        width: tileSize,
-      ));
-    }
+    // final resources = components.whereType<ResourceComponent>();
+
+    // if (resources.length == 1) {
+    //   add(MineComponent(
+    //     input: resources.first,
+    //     position: placePosition,
+    //     height: tileSize,
+    //     width: tileSize,
+    //   ));
+    // }
   }
 
   // @override

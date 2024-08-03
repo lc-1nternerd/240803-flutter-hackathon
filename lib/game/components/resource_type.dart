@@ -1,4 +1,13 @@
 enum ResourceType {
+  // spawned resources
   Iron,
-  Feather
+  Wood,
+  Sand,
+  Feather,
+  // produced resources
+  Wing,
+  Foot,
+  Body,
+  Beak,
+  Eye
 }
