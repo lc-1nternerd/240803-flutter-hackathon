@@ -1,24 +1,16 @@
+import 'package:diefiaker/game/components/machine.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 
-class ConveyorBeltComponent<I extends Component, O extends Component>
-    extends RectangleComponent {
-  final I input;
-  O? output;
+class ConveyorBeltComponent extends MachineComponent<MachineComponent, MachineComponent> {
 
   ConveyorBeltComponent({
     required super.position,
-    required this.input,
-    this.output,
-    Color color = Colors.pink,
-    double height = 50,
-    double width = 50,
-  }) : super(
-            anchor: Anchor.center,
-            size: Vector2(height, width),
-            paint: Paint()
-              ..color = color
-              ..style = PaintingStyle.fill);
+    required super.input,
+    super.output,
+    super.height = 50,
+    super.width = 50,
+  });
 
   @override
   void render(Canvas canvas) {
