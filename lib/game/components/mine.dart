@@ -13,7 +13,10 @@ import 'package:diefiaker/game/movable_item.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 
-class MineComponent extends SingleInputMachineComponent<ResourceComponent> {
+import '../game.dart';
+
+class MineComponent extends SingleInputMachineComponent<ResourceComponent>
+    with HasGameRef<DieFiakerGame> {
   MineComponent(
       {required super.input,
       super.output,
@@ -24,7 +27,7 @@ class MineComponent extends SingleInputMachineComponent<ResourceComponent> {
   List<Vector2> path = [];
 
   @override
-  FutureOr<void> onLoad() {
+  Future<void> onLoad() async {
     input.onProduce(produceResource);
 
     if (input is IronResourceComponent) {
@@ -44,6 +47,15 @@ class MineComponent extends SingleInputMachineComponent<ResourceComponent> {
         ..color = Colors.green.shade800
         ..style = PaintingStyle.fill;
     }
+    final ironSprite = await gameRef.loadSprite('mine.png');
+    add(
+      SpriteComponent(
+        sprite: ironSprite,
+        size: size,
+        position: Vector2(0, 0),
+      ),
+    );
+    super.onLoad();
   }
 
   produceResource(ResourceType type) {
