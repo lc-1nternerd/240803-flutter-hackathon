@@ -50,15 +50,23 @@ class CombinerMachineComponent extends MultiInputMachine<MachineComponent> {
       resourceMap[type] = resourceMap[type]! + 1; 
     }
 
+    print("combiner current status: ${resourceMap.entries.toList()}");
+
     if (recipe.isDone(resourceMap)) {
       print("machine is done");
       if (output != null) {
         output!.push(recipe.cook());
       }
 
-      // for(final res in resourceMap.keys) {
-      //    resourceMap[res] = resourceMap[res] - (recipe.ingredients && recipe.ingredients[res] ? recipe.ingredients[res] : 0);
-      // }
+      final ing = recipe.ingredients;
+      for(final res in resourceMap.keys) {
+        if (ing[res] == null) {
+          continue;
+        }
+        resourceMap[res] = resourceMap[res]! - (ing[res] ?? 0);
+      }
+
+      print("combiner recipe done, new status ${resourceMap.entries.toList()}");
     }
   }
 
