@@ -30,7 +30,7 @@ class MineComponent extends SingleInputMachineComponent<ResourceComponent> {
     } else if (input is FeatherResourceComponent) {
       paint = Paint()..color=Colors.lightBlue..style=PaintingStyle.fill;
     } else if (input is SandResourceComponent) {
-      paint = Paint()..color=Colors.amber.shade300..style=PaintingStyle.fill;
+      paint = Paint()..color=Colors.amber.shade700..style=PaintingStyle.fill;
     } else if (input is WoodResourceComponent) {
       paint = Paint()..color=Colors.green.shade800..style=PaintingStyle.fill;
     }

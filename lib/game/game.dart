@@ -4,6 +4,8 @@ import 'package:diefiaker/game/components/combiner_machine.dart';
 import 'package:diefiaker/game/components/conveyor_belt.dart';
 import 'package:diefiaker/game/components/machine.dart';
 import 'package:diefiaker/game/components/mine.dart';
+import 'package:diefiaker/game/components/resources/sand_resource.dart';
+import 'package:diefiaker/game/components/resources/wood_resource.dart';
 import 'package:diefiaker/game/constants.dart';
 import 'package:diefiaker/game/controls/control_model.dart';
 import 'package:diefiaker/game/recipe/recipes.dart';
@@ -36,6 +38,13 @@ class DieFiakerGame extends FlameGame with TapDetector, DragCallbacks {
         position: Vector2(50, 50), productionPerMinute: 60));
     add(IronResourceComponent(
         position: Vector2(250, 300), productionPerMinute: 30));
+
+    add(WoodResourceComponent(
+        position: Vector2(200, 400), productionPerMinute: 80));
+
+      
+    add(SandResourceComponent(
+        position: Vector2(100, 600), productionPerMinute: 30));
   }
 
   @override
@@ -173,7 +182,7 @@ class DieFiakerGame extends FlameGame with TapDetector, DragCallbacks {
       for (final component in adjacentComponents) {
         if (component is ConveyorBeltComponent && component.output == null) {
           combiner.addInput(component);
-          component.addOutput(component);
+          component.addOutput(combiner);
         }
       }
     }

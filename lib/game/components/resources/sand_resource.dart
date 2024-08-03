@@ -7,5 +7,5 @@ class SandResourceComponent extends ResourceComponent {
       {required super.position,
       required super.productionPerMinute,
       super.emitResourceCallback})
-      : super(color: Colors.lightBlue, type: ResourceType.Feather);
+      : super(color: Colors.amber.shade700, type: ResourceType.Sand);
 }

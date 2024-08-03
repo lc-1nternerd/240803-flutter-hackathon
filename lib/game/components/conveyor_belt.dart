@@ -64,6 +64,10 @@ class ConveyorBeltComponent extends SingleInputMachineComponent<MachineComponent
 
   @override
   void update(double dt) {
+    if (currentResources.isEmpty) {
+      return;
+    }
+
     final t = DateTime.now().add(Duration(microseconds: gameRef.currentTime().toInt()));
     
     final matchedResources = currentResources.where((res) => t.difference(res.addedAt).inSeconds >= 1).toList();  

@@ -7,5 +7,5 @@ class WoodResourceComponent extends ResourceComponent {
       {required super.position,
       required super.productionPerMinute,
       super.emitResourceCallback})
-      : super(color: Colors.lightBlue, type: ResourceType.Feather);
+      : super(color: Colors.green.shade800, type: ResourceType.Wood);
 }

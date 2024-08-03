@@ -32,7 +32,7 @@ class ResourceComponent<T extends ResourceType> extends CircleComponent {
     periodicProductionTimer?.cancel();
     periodicProductionTimer = null;
     periodicProductionTimer = Timer.periodic(
-      Duration(seconds: (60 / productionPerMinute).toInt()),
+      Duration(milliseconds: ((60 / productionPerMinute)*1000).toInt()),
       (Timer timer) {
         callback(type);
       },
