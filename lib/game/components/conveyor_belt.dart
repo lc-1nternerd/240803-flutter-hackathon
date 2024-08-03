@@ -2,8 +2,8 @@ import 'package:diefiaker/game/components/machine.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 
-class ConveyorBeltComponent extends MachineComponent<MachineComponent, MachineComponent> {
-
+class ConveyorBeltComponent
+    extends MachineComponent<MachineComponent, MachineComponent> {
   ConveyorBeltComponent({
     required super.position,
     required super.input,
