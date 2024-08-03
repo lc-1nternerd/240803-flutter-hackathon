@@ -10,9 +10,10 @@ class MovableItem extends PositionComponent {
 
   MovableItem({
     required Vector2 position,
+    required Color color,
     required this.path,
     required this.ratePerMinute,
-  })  : paint = Paint()..color = Colors.yellow,
+  })  : paint = Paint()..color = color,
         super(position: position, size: Vector2.all(20)) {
     // Calculate speed based on ratePerMinute
     // One tile is 50x50, so speed = distance / time

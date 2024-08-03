@@ -65,8 +65,25 @@ class MineComponent extends SingleInputMachineComponent<ResourceComponent> {
         );
       }
 
+      var color = Colors.brown;
+
+      if (input is IronResourceComponent) {
+        color = Colors.brown;
+      } else if (input is FeatherResourceComponent) {
+        color = Colors.lightBlue;
+      } else if (input is SandResourceComponent) {
+        color = Colors.amber;
+      } else if (input is WoodResourceComponent) {
+        color = Colors.green;
+      }
+
       add(
-        MovableItem(position: newList.first, path: newList, ratePerMinute: 60),
+        MovableItem(
+          position: newList.first,
+          path: newList,
+          ratePerMinute: 60,
+          color: color,
+        ),
       );
     }
   }
@@ -78,6 +95,7 @@ class MineComponent extends SingleInputMachineComponent<ResourceComponent> {
 
   addPath(List<Vector2> pathToSet) {
     print(pathToSet);
+
     path = pathToSet;
   }
 
