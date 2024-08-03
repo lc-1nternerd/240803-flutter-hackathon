@@ -4,6 +4,7 @@ import 'package:diefiaker/game/components/machine.dart';
 import 'package:diefiaker/game/components/multiple_input_machine.dart';
 import 'package:diefiaker/game/components/resources/resource_type.dart';
 import 'package:diefiaker/game/recipe/recipes.dart';
+import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 
 class CombinerMachineComponent extends MultiInputMachine<MachineComponent> {
@@ -36,11 +37,13 @@ class CombinerMachineComponent extends MultiInputMachine<MachineComponent> {
 
   @override
   addInput(MachineComponent input) {
+    print("adding input ${input.runtimeType}");
     inputs.add(input);
   }
 
   @override
   push(ResourceType type) {
+    print("push on combiner machine $hashCode: $type");
     if (resourceMap[type] == null) {
       resourceMap[type] = 1;
     } else {
@@ -49,6 +52,18 @@ class CombinerMachineComponent extends MultiInputMachine<MachineComponent> {
 
     if (recipe.isDone(resourceMap)) {
       print("machine is done");
+      if (output != null) {
+        output!.push(recipe.cook());
+      }
+
+      // for(final res in resourceMap.keys) {
+      //    resourceMap[res] = resourceMap[res] - (recipe.ingredients && recipe.ingredients[res] ? recipe.ingredients[res] : 0);
+      // }
     }
+  }
+
+  @override
+  addOutput(MachineComponent<Component> component) {
+    output = component;
   }
 }

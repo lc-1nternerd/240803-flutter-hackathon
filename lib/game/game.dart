@@ -161,13 +161,21 @@ class DieFiakerGame extends FlameGame with TapDetector, DragCallbacks {
     );
 
     if (selectedRecipe != null) {
-      add(
-        CombinerMachineComponent(
+      final combiner = CombinerMachineComponent(
           position: placePosition,
           recipe: selectedRecipe,
           inputs: existingComponent?.inputs ?? [],
-        ),
-      );
+        );
+      add(combiner);
+
+      final adjacentComponents = checkSurroundingComponents(placePosition);
+
+      for (final component in adjacentComponents) {
+        if (component is ConveyorBeltComponent && component.output == null) {
+          combiner.addInput(component);
+          component.addOutput(component);
+        }
+      }
     }
   }
 
@@ -178,6 +186,32 @@ class DieFiakerGame extends FlameGame with TapDetector, DragCallbacks {
       debugPrint("wont place a conveyor if existing machine component");
       return;
     }
+
+    final adjacentComponents = checkSurroundingComponents(placePosition);
+
+    if (adjacentComponents.whereType<MineComponent>().isNotEmpty ||
+        adjacentComponents.whereType<ConveyorBeltComponent>().isNotEmpty ||
+        adjacentComponents.whereType<CombinerMachineComponent>().isNotEmpty) {
+      final input = adjacentComponents.whereType<MachineComponent>().first;
+
+      if (input.output == null) {
+        final currentBelt = ConveyorBeltComponent(
+          position: placePosition,
+          input: input,
+          height: tileSize,
+          width: tileSize,
+        );
+
+        input.output = currentBelt;
+
+        add(currentBelt);
+
+        return;
+      }
+    }
+  }
+
+  checkSurroundingComponents(Vector2 position) {
     final offsets = [
       Vector2(-tileSize, 0),
       Vector2(tileSize, 0),
@@ -185,29 +219,12 @@ class DieFiakerGame extends FlameGame with TapDetector, DragCallbacks {
       Vector2(0, -tileSize)
     ];
 
+    final List<Component> foundComponents = [];
     for (var offset in offsets) {
-      final adjacentComponents = componentsAtPoint(placePosition + offset);
-
-      if (adjacentComponents.whereType<MineComponent>().isNotEmpty ||
-          adjacentComponents.whereType<ConveyorBeltComponent>().isNotEmpty) {
-        final input = adjacentComponents.whereType<MachineComponent>().first;
-
-        if (input.output == null) {
-          final currentBelt = ConveyorBeltComponent(
-            position: placePosition,
-            input: input,
-            height: tileSize,
-            width: tileSize,
-          );
-
-          input.output = currentBelt;
-
-          add(currentBelt);
-
-          return;
-        }
-      }
+      final adjacentComponents = componentsAtPoint(position + offset);
+      foundComponents.addAll(adjacentComponents);
     }
+    return foundComponents;
   }
 
 // @override

@@ -58,6 +58,11 @@ class ConveyorBeltComponent extends SingleInputMachineComponent<MachineComponent
   }
 
   @override
+  addOutput(MachineComponent<Component> component) {
+    output = component;
+  }
+
+  @override
   void update(double dt) {
     final t = DateTime.now().add(Duration(microseconds: gameRef.currentTime().toInt()));
     

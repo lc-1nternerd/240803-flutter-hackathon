@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:diefiaker/game/components/machine.dart';
 import 'package:diefiaker/game/components/resources/feather_resource.dart';
 import 'package:diefiaker/game/components/resources/iron_resource.dart';
 import 'package:diefiaker/game/components/resources/resource.dart';
@@ -8,6 +9,7 @@ import 'package:diefiaker/game/components/resources/sand_resource.dart';
 import 'package:diefiaker/game/components/resources/wood_resource.dart';
 import 'package:diefiaker/game/components/single_input_machine.dart';
 import 'package:diefiaker/game/constants.dart';
+import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 
 class MineComponent extends SingleInputMachineComponent<ResourceComponent> {
@@ -39,6 +41,11 @@ class MineComponent extends SingleInputMachineComponent<ResourceComponent> {
     if (output != null) {
       output?.push(type);
     }
+  }
+
+  @override
+  addOutput(MachineComponent<Component> component) {
+    output = component;
   }
 
   @override
