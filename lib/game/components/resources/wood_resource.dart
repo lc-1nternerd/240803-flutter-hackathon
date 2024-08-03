@@ -1,5 +1,6 @@
 import 'package:diefiaker/game/components/resources/resource.dart';
 import 'package:diefiaker/game/components/resources/resource_type.dart';
+import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 
 class WoodResourceComponent extends ResourceComponent {
@@ -7,5 +8,18 @@ class WoodResourceComponent extends ResourceComponent {
       {required super.position,
       required super.productionPerMinute,
       super.emitResourceCallback})
-      : super(color: Colors.green.shade800, type: ResourceType.Wood);
+      : super(color: Colors.transparent, type: ResourceType.Wood);
+
+  @override
+  Future<void> onLoad() async {
+    final woodSprite = await gameRef.loadSprite('wood-resource.png');
+    add(
+      SpriteComponent(
+        sprite: woodSprite,
+        size: size,
+        position: Vector2(0, 0),
+      ),
+    );
+    return super.onLoad();
+  }
 }

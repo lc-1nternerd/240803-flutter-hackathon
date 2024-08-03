@@ -7,7 +7,8 @@ import 'package:flutter/cupertino.dart';
 
 typedef ResourceCallback = void Function(ResourceType type);
 
-class ResourceComponent<T extends ResourceType> extends CircleComponent {
+class ResourceComponent<T extends ResourceType> extends CircleComponent
+    with HasGameRef {
   ResourceType type;
 
   ResourceComponent({
@@ -19,7 +20,9 @@ class ResourceComponent<T extends ResourceType> extends CircleComponent {
   }) {
     super.radius = tileSize / 2;
 
-    super.paint = Paint()..color = color..style=PaintingStyle.fill;
+    super.paint = Paint()
+      ..color = color
+      ..style = PaintingStyle.fill;
 
     anchor = Anchor.center;
   }
@@ -32,7 +35,7 @@ class ResourceComponent<T extends ResourceType> extends CircleComponent {
     periodicProductionTimer?.cancel();
     periodicProductionTimer = null;
     periodicProductionTimer = Timer.periodic(
-      Duration(milliseconds: ((60 / productionPerMinute)*1000).toInt()),
+      Duration(milliseconds: ((60 / productionPerMinute) * 1000).toInt()),
       (Timer timer) {
         callback(type);
       },
