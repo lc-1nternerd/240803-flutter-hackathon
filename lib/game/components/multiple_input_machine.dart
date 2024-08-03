@@ -10,4 +10,6 @@ abstract class MultiInputMachine<I extends MachineComponent> extends MachineComp
       required this.inputs,
       double height = 50,
       double width = 50,});
+
+  addInput(I input) => throw UnimplementedError("Machine $runtimeType cannot add input sources!");
 }

@@ -1,23 +1,12 @@
 import 'package:diefiaker/game/components/resource_type.dart';
 
 abstract class MachineRecipe {
-  final Map<ResourceType, int> resourceMap = {};
-
-  addResource(ResourceType type) {
-    if (resourceMap[type] == null) {
-      resourceMap[type] = 1;
-      return;
-    }
-
-    resourceMap[type] = resourceMap[type]! + 1;
-  }
-
-  bool isDone();
+  bool isDone(Map<ResourceType, int> resourceMap);
 }
 
 class WingRecipe extends MachineRecipe {
   @override
-  bool isDone() {
+  bool isDone(Map<ResourceType, int> resourceMap) {
     return (resourceMap[ResourceType.Wood] == 5 &&
         resourceMap[ResourceType.Feather] == 10);
   }
@@ -25,14 +14,14 @@ class WingRecipe extends MachineRecipe {
 
 class FootRecipe extends MachineRecipe {
   @override
-  bool isDone() {
+  bool isDone(Map<ResourceType, int> resourceMap) {
     return (resourceMap[ResourceType.Wood] == 3);
   }
 }
 
 class BodyRecipe extends MachineRecipe {
   @override
-  bool isDone() {
+  bool isDone(Map<ResourceType, int> resourceMap) {
     return (resourceMap[ResourceType.Iron] == 2 &&
         resourceMap[ResourceType.Feather] == 2);
   }
@@ -40,7 +29,7 @@ class BodyRecipe extends MachineRecipe {
 
 class BeakRecipe extends MachineRecipe {
   @override
-  bool isDone() {
+  bool isDone(Map<ResourceType, int> resourceMap) {
     return (resourceMap[ResourceType.Wood] == 5 &&
         resourceMap[ResourceType.Iron] == 10);
   }
@@ -48,7 +37,7 @@ class BeakRecipe extends MachineRecipe {
 
 class EyesRecipe extends MachineRecipe {
   @override
-  bool isDone() {
+  bool isDone(Map<ResourceType, int> resourceMap) {
     return (resourceMap[ResourceType.Sand] == 2 &&
         resourceMap[ResourceType.Iron] == 1);
   }

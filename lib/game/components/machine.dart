@@ -18,5 +18,7 @@ abstract class MachineComponent<O extends Component> extends RectangleComponent 
               ..color = color
               ..style = PaintingStyle.fill);
 
-  push(ResourceType type) => {};
+  push(ResourceType type) => throw UnimplementedError("'$runtimeType' cannot push resources!");
+
+  addOutput(MachineComponent component) => throw UnimplementedError("'$runtimeType' cannot add output!");
 }

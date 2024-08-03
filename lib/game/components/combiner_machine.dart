@@ -2,11 +2,14 @@ import 'dart:async';
 
 import 'package:diefiaker/game/components/machine.dart';
 import 'package:diefiaker/game/components/multiple_input_machine.dart';
+import 'package:diefiaker/game/components/resource_type.dart';
 import 'package:diefiaker/game/recipe/recipes.dart';
 import 'package:flutter/material.dart';
 
 class CombinerMachineComponent extends MultiInputMachine<MachineComponent> {
   MachineRecipe recipe;
+
+  final Map<ResourceType, int> resourceMap = {};
 
   CombinerMachineComponent(
       {required super.position,
@@ -28,6 +31,24 @@ class CombinerMachineComponent extends MultiInputMachine<MachineComponent> {
       paint.color = Colors.yellowAccent;
     } else if (recipe is EyesRecipe) {
       paint.color = Colors.black38;
+    }
+  }
+
+  @override
+  addInput(MachineComponent input) {
+    inputs.add(input);
+  }
+
+  @override
+  push(ResourceType type) {
+    if (resourceMap[type] == null) {
+      resourceMap[type] = 1;
+    } else {
+      resourceMap[type] = resourceMap[type]! + 1; 
+    }
+
+    if (recipe.isDone(resourceMap)) {
+      print("machine is done");
     }
   }
 }
