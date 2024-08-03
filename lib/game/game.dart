@@ -42,7 +42,6 @@ class DieFiakerGame extends FlameGame with TapDetector, DragCallbacks {
     add(WoodResourceComponent(
         position: Vector2(200, 400), productionPerMinute: 80));
 
-      
     add(SandResourceComponent(
         position: Vector2(100, 600), productionPerMinute: 30));
   }
@@ -171,11 +170,14 @@ class DieFiakerGame extends FlameGame with TapDetector, DragCallbacks {
 
     if (selectedRecipe != null) {
       final combiner = CombinerMachineComponent(
-          position: placePosition,
-          recipe: selectedRecipe,
-          inputs: existingComponent?.inputs ?? [],
-        );
+        position: placePosition,
+        recipe: selectedRecipe,
+        inputs: existingComponent?.inputs ?? [],
+      );
       add(combiner);
+      if (existingComponent != null) {
+        remove(existingComponent);
+      }
 
       final adjacentComponents = checkSurroundingComponents(placePosition);
 
