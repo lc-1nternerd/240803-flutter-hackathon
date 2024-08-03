@@ -229,6 +229,8 @@ class DieFiakerGame extends FlameGame with TapDetector, DragCallbacks {
               if (before.input is MineComponent) {
                 lastMine = before.input as MineComponent;
                 path.add(maschine.position);
+              } else {
+                lastMine = null;
               }
 
               break;
