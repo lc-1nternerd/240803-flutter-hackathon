@@ -8,6 +8,7 @@ import 'package:diefiaker/game/components/resources/sand_resource.dart';
 import 'package:diefiaker/game/components/resources/wood_resource.dart';
 import 'package:diefiaker/game/constants.dart';
 import 'package:diefiaker/game/controls/control_model.dart';
+import 'package:diefiaker/game/movable_item.dart';
 import 'package:diefiaker/game/recipe/recipes.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
@@ -185,6 +186,31 @@ class DieFiakerGame extends FlameGame with TapDetector, DragCallbacks {
         if (component is ConveyorBeltComponent && component.output == null) {
           combiner.addInput(component);
           component.addOutput(combiner);
+
+          ConveyorBeltComponent? before =
+              combiner.inputs.first as ConveyorBeltComponent?;
+
+          late MineComponent lastMine;
+
+          List<Vector2> path = [];
+          path.add(combiner.position);
+
+          while (before != null) {
+            if (before.input is ConveyorBeltComponent) {
+              before = before.input as ConveyorBeltComponent;
+              path.add(before.position);
+            } else {
+              final maschine = before.input;
+              lastMine = before.input as MineComponent;
+              path.add(maschine.position);
+
+              break;
+            }
+          }
+
+          lastMine.addPath(path.reversed.toList());
+
+          return;
         }
       }
     }

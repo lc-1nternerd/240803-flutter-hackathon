@@ -12,8 +12,9 @@ class TimedResource {
   TimedResource(this.type, this.addedAt);
 }
 
-class ConveyorBeltComponent extends SingleInputMachineComponent<MachineComponent> with HasGameRef<DieFiakerGame> {
-
+class ConveyorBeltComponent
+    extends SingleInputMachineComponent<MachineComponent>
+    with HasGameRef<DieFiakerGame> {
   List<TimedResource> currentResources = [];
 
   ConveyorBeltComponent({
@@ -29,7 +30,7 @@ class ConveyorBeltComponent extends SingleInputMachineComponent<MachineComponent
     super.render(canvas);
 
     // Draw the conveyor belt background
-    paint.color = Colors.grey.shade800;
+    paint.color = Colors.transparent;
     canvas.drawRect(size.toRect(), paint);
 
     // Draw the conveyor belt lines
@@ -46,7 +47,12 @@ class ConveyorBeltComponent extends SingleInputMachineComponent<MachineComponent
     }
 
     if (currentResources.isNotEmpty) {
-      canvas.drawCircle(Offset(size.x/2, size.y/2), 20, Paint()..color=Colors.red..style=PaintingStyle.fill);
+      canvas.drawCircle(
+          Offset(size.x / 2, size.y / 2),
+          20,
+          Paint()
+            ..color = Colors.red
+            ..style = PaintingStyle.fill);
     }
   }
 
@@ -68,9 +74,12 @@ class ConveyorBeltComponent extends SingleInputMachineComponent<MachineComponent
       return;
     }
 
-    final t = DateTime.now().add(Duration(microseconds: gameRef.currentTime().toInt()));
-    
-    final matchedResources = currentResources.where((res) => t.difference(res.addedAt).inSeconds >= 1).toList();  
+    final t = DateTime.now()
+        .add(Duration(microseconds: gameRef.currentTime().toInt()));
+
+    final matchedResources = currentResources
+        .where((res) => t.difference(res.addedAt).inSeconds >= 1)
+        .toList();
 
     for (final r in matchedResources) {
       if (output != null) {
