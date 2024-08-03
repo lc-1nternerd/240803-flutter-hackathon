@@ -47,6 +47,7 @@ class CombinerMachineComponent extends MultiInputMachine<MachineComponent> {
 
   @override
   push(ResourceType type) {
+    onCook();
     print("push on combiner machine $runtimeType: $type");
     if (resourceMap[type] == null) {
       resourceMap[type] = 1;
@@ -69,7 +70,6 @@ class CombinerMachineComponent extends MultiInputMachine<MachineComponent> {
         }
         resourceMap[res] = resourceMap[res]! - (ing[res] ?? 0);
       }
-
       print("combiner recipe done, new status ${resourceMap.entries.toList()}");
     }
   }

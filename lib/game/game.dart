@@ -9,7 +9,6 @@ import 'package:diefiaker/game/components/resources/sand_resource.dart';
 import 'package:diefiaker/game/components/resources/wood_resource.dart';
 import 'package:diefiaker/game/constants.dart';
 import 'package:diefiaker/game/controls/control_model.dart';
-import 'package:diefiaker/game/movable_item.dart';
 import 'package:diefiaker/game/recipe/recipes.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
@@ -259,7 +258,7 @@ class DieFiakerGame extends FlameGame with TapDetector, DragCallbacks {
 
     if (adjacentComponents.whereType<MineComponent>().isNotEmpty ||
         adjacentComponents.whereType<ConveyorBeltComponent>().isNotEmpty ||
-        adjacentComponents.whereType<CombinerMachineComponent>().isNotEmpty) {
+        adjacentComponents.whereType<CombinerMachineComponent>().isNotEmpty ) {
       final input = adjacentComponents.whereType<MachineComponent>().first;
 
       if (input.output == null) {
@@ -279,7 +278,7 @@ class DieFiakerGame extends FlameGame with TapDetector, DragCallbacks {
     }
   }
 
-  checkSurroundingComponents(Vector2 position) {
+  List<Component> checkSurroundingComponents(Vector2 position) {
     final offsets = [
       Vector2(-tileSize, 0),
       Vector2(tileSize, 0),

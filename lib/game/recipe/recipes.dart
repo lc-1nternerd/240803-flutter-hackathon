@@ -2,7 +2,7 @@ import 'package:diefiaker/game/components/resources/resource_type.dart';
 
 abstract class MachineRecipe {
   bool isDone(Map<ResourceType, int> resourceMap) {
-    return (resourceMap.keys.every((r) {
+    return (ingredients.keys.every((r) {
       if (resourceMap[r] == null) {
         return false;
       }
